@@ -1,6 +1,6 @@
-#include "Game.h"
-#include "Gamestatestart.h"
-#include "Gamestategame.h"
+#include "src/Game.h"
+#include "src/Gamestatestart.h"
+#include "src/Gamestategame.h"
 
 int main()
 {
