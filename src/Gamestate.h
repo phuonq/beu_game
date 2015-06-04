@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include "Gamestate.h"
 #include "Texturemanager.h"
+
 class Game;
 
 
@@ -21,6 +22,7 @@ public:
 	Game* game;
 	sf::Sprite background;
 	Texture_manager texmgr;
+
 
 
 	virtual void draw(const float dt) = 0;

@@ -7,9 +7,11 @@
 
 #include "Gamestatestart.h"
 #include "Gamestategame.h"
+
 Gamestate_start::Gamestate_start(Game* game) {
 	load_textures();
 	this->game = game;
+	mouse.set_game_pointer(game);
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
 	this->view.setSize(pos);
 	pos *= 0.5f;
@@ -25,12 +27,13 @@ void Gamestate_start::draw(const float dt){
 	this->game->window.setView(this->view);
 	this->game->window.clear(sf::Color::Red);
 	this->game->window.draw(this->background);
+	this->game->window.draw(this->mouse.sprite);
 
 	return;
 }
 
 void Gamestate_start::update(const float dt){
-
+	mouse.update();
 }
 
 void Gamestate_start::handle_input(){
