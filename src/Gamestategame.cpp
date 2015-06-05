@@ -18,7 +18,9 @@ Gamestate_game::Gamestate_game(Game* game) {
 	this->game_view.setCenter(pos);
 	this->background.setTexture(this->texmgr.get_ref("background_game"));
 	escape_flag = 0;
+	this->game->window.setMouseCursorVisible(true);
 
+	obstacle.set_game_pointer(game);
 }
 
 Gamestate_game::~Gamestate_game() {
@@ -28,11 +30,14 @@ Gamestate_game::~Gamestate_game() {
 void Gamestate_game::draw(const float dt){
 	this->game->window.clear(sf::Color::Blue);
 	this->game->window.draw(this->background);
-
+	this->obstacle.draw_all_obstacles(dt);
 	return;
 }
 
 void Gamestate_game::update(const float dt){
+
+	this->obstacle.update_all_obstacles(dt);
+
 	if(escape_flag == 1)
 		this->game->pop_state();
 	return;
@@ -57,6 +62,11 @@ void Gamestate_game::handle_input(){
 			if(event.key.code == sf::Keyboard::Escape)
 				set_escape_flag();
 			break;
+		case sf::Event::MouseButtonPressed:
+			if(sf::Event::MouseLeft) {
+				obstacle.add_Obstacle(*new Obstacle());
+			}
+			break;
 		default:
 			break;
 		}
@@ -66,8 +76,10 @@ void Gamestate_game::handle_input(){
 
 void Gamestate_game::load_textures(){
 	texmgr.load_texture("background_game", "textures/background_game.jpg");
+	this->obstacle.load_multiple_textures(texture_link);
 }
 
 void Gamestate_game::set_escape_flag() {
+	this->game->window.setMouseCursorVisible(false);
 	escape_flag = 1;
 }

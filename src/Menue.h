@@ -16,7 +16,7 @@ public:
 
 	void update(const float dt);
 	void draw(const float dt);
-	bool check_hit(sf::Vector2f hit_position);
+	int check_hit(sf::Vector2f hit_position);
 	Menue();
 	virtual ~Menue();
 

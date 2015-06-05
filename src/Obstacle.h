@@ -20,9 +20,11 @@ public:
 	void remove_Obstacle(std::vector<Obstacle>::iterator it);
 	std::vector<Obstacle>::iterator get_pointer_on_first_element();
 	std::vector<Obstacle>::iterator get_pointer_on_last_element();
+	void draw_all_obstacles(const float dt);
+	void update_all_obstacles(const float dt);
 
 private:
-	std::vector<Obstacle> list;
+	static std::vector<Obstacle> list;
 };
 
 #endif /* OBSTACLE_H_ */

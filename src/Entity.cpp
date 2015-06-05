@@ -6,18 +6,19 @@
  */
 
 #include "Entity.h"
+#include <boost/filesystem.hpp>
 
 Entity::Entity() {
 
 }
 
-Entity::Entity(Game *game, const std::string texture_type, const std::string texture_link) {
+Entity::Entity(Game *game, const std::string& texture_type, const std::string& texture_link) {
 	this->game = game;
 	load_textures(texture_type, texture_link);
 	set_texture(texture_type);
 }
 
-Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, const std::string texture_type, const std::string texture_link) {
+Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, const std::string& texture_type, const std::string& texture_link) {
 	this->position = position;
 	this->velocity = velocity;
 	this->accelaration = accelaration;
@@ -44,16 +45,29 @@ void Entity::draw() {
 	this->game->window.draw(this->sprite);
 }
 
-void Entity::load_textures(const std::string texture_type, const std::string texture_link) {
+void Entity::load_textures(const std::string &texture_type, const std::string &texture_link) {
 	this->texmgr.load_texture(texture_type, texture_link);
 	return;
 }
 
-void Entity::load_multiple_textures(const std::string texture_link) {
+void Entity::load_multiple_textures(const std::string& texture_link) {
+	using namespace boost::filesystem;
 
+	std::string full_link;
+	std::string texture_type;
+
+	if (is_directory(texture_link)) {
+		  for (directory_iterator itr(texture_link); itr!=directory_iterator(); ++itr) {
+			  texture_type = itr->path().stem().string();
+			  full_link = texture_link + itr->path().filename().string();
+			  this->load_textures(texture_type, full_link);
+		  }
+	  }
+
+	  return;
 }
 
-void Entity::set_texture(const std::string texture_type) {
+void Entity::set_texture(const std::string &texture_type) {
 	this->sprite.setTexture(this->texmgr.get_ref(texture_type));
 }
 

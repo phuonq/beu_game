@@ -9,7 +9,8 @@
 #define GAMESTATEGAME_H_
 #include <SFML/Graphics.hpp>
 #include "Gamestate.h"
-
+#include "Game.h"
+#include "Obstacle.h"
 
 class Gamestate_game : public Gamestate {
 public:
@@ -19,11 +20,15 @@ public:
 	Gamestate_game(Game* game);
 	virtual ~Gamestate_game();
 	void set_escape_flag();
+
 private:
 	sf::View game_view;
 	sf::View gui_view;
 	void load_textures();
 	int escape_flag;
+
+	Obstacle obstacle;
+
 
 };
 

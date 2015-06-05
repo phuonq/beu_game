@@ -7,6 +7,8 @@
 
 #include "Obstacle.h"
 
+std::vector<Obstacle> Obstacle::list;
+
 Obstacle::Obstacle() {
 
 }
@@ -30,4 +32,26 @@ std::vector<Obstacle>::iterator Obstacle::get_pointer_on_first_element() {
 
 std::vector<Obstacle>::iterator Obstacle::get_pointer_on_last_element() {
 	return this->list.end();
+}
+
+void Obstacle::draw_all_obstacles(const float dt) {
+	std::vector<Obstacle>::iterator first = get_pointer_on_first_element();
+	std::vector<Obstacle>::iterator last = get_pointer_on_last_element();
+	std::vector<Obstacle>::iterator it;
+
+	for (it = first; it != last; it++) {
+		it->game->window.draw(it->sprite);
+	}
+}
+void Obstacle::update_all_obstacles(const float dt) {
+	position = sf::Vector2f(sf::Mouse::getPosition(this->game->window) + sf::Vector2i(-9,-9));
+	sprite.setPosition(position);
+
+	std::vector<Obstacle>::iterator first = get_pointer_on_first_element();
+	std::vector<Obstacle>::iterator last = get_pointer_on_last_element();
+	std::vector<Obstacle>::iterator it;
+
+	for (it = first; it != last; it++) {
+		it->update(dt);
+	}
 }
