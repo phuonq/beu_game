@@ -16,9 +16,7 @@ public:
 	virtual ~Projectile();
 
 private:
-	double health;
-	double mana;
-	sf::Vector2f jump_accelaration;
+
 };
 
 #endif /* PROJECTILE_H_ */

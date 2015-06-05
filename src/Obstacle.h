@@ -10,6 +10,8 @@
 
 #include "Entity.h"
 
+#define texture_link "texture/Obstacles/"
+
 class Obstacle: public Entity {
 public:
 	Obstacle();

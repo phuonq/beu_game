@@ -11,7 +11,13 @@ Entity::Entity() {
 
 }
 
-Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size) {
+Entity::Entity(Game *game, const std::string texture_type, const std::string texture_link) {
+	this->game = game;
+	load_textures(texture_type, texture_link);
+	set_texture(texture_type);
+}
+
+Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, const std::string texture_type, const std::string texture_link) {
 	this->position = position;
 	this->velocity = velocity;
 	this->accelaration = accelaration;
@@ -19,16 +25,40 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accela
 	this->shape.setPosition(position);
 	this->hitbox.x = shape_size.x/2;
 	this->hitbox.y = shape_size.y/2;
+	this->game = game;
+	load_textures(texture_type, texture_link);
+	set_texture(texture_type);
 }
 
 Entity::~Entity() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void Entity::update(double dt) {
 	velocity.x += accelaration.x * dt;
 	velocity.y += accelaration.y * dt;
 	shape.move(velocity);
+}
+
+void Entity::draw() {
+	this->game->window.draw(this->sprite);
+}
+
+void Entity::load_textures(const std::string texture_type, const std::string texture_link) {
+	this->texmgr.load_texture(texture_type, texture_link);
+	return;
+}
+
+void Entity::load_multiple_textures(const std::string texture_link) {
+
+}
+
+void Entity::set_texture(const std::string texture_type) {
+	this->sprite.setTexture(this->texmgr.get_ref(texture_type));
+}
+
+void Entity::set_game_pointer(Game* game) {
+	this->game = game;
 }
 
 void Entity::set_hitbox(sf::Vector2f middle_to_sides) {
