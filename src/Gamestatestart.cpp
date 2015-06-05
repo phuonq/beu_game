@@ -11,7 +11,9 @@
 Gamestate_start::Gamestate_start(Game* game) {
 	load_textures();
 	this->game = game;
+	//mouse = Mouse(this->game);
 	mouse.set_game_pointer(game);
+	menue.set_game_pointer(game);
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
 	this->view.setSize(pos);
 	pos *= 0.5f;
@@ -27,13 +29,14 @@ void Gamestate_start::draw(const float dt){
 	this->game->window.setView(this->view);
 	this->game->window.clear(sf::Color::Red);
 	this->game->window.draw(this->background);
-	this->game->window.draw(this->mouse.sprite);
+	menue.draw(dt);
+	mouse.draw(dt);
 
 	return;
 }
 
 void Gamestate_start::update(const float dt){
-	mouse.update();
+	mouse.update(dt);
 }
 
 void Gamestate_start::handle_input(){
@@ -53,9 +56,17 @@ void Gamestate_start::handle_input(){
 		case sf::Event::KeyPressed:
 			if(event.key.code == sf::Keyboard::Escape)
 				this->game->window.close();
-			else if(event.key.code == sf::Keyboard::Return)
-				this->load_game();
+			/*else if(event.key.code == sf::Keyboard::Return)
+				this->load_game();*/
 	        break;
+		case sf::Event::MouseButtonPressed:
+			if(sf::Event::MouseLeft)
+				switch (menue.check_hit(sf::Vector2f(sf::Mouse::getPosition(this->game->window)))){
+				case 1:
+					this->load_game();
+					break;
+				}
+			break;
 		default:
 			break;
 		}
@@ -68,6 +79,6 @@ void Gamestate_start::load_game(){
 }
 
 void Gamestate_start::load_textures(){
-	texmgr.load_texture("background_start", "textures/background_start.jpg");
+	texmgr.load_texture("background_start", "textures/background_start.jpeg");
 }
 

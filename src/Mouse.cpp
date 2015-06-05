@@ -8,8 +8,8 @@
 #include "Mouse.h"
 
 Mouse::Mouse(Game* game) {
-	load_textures();
 	this->game = game;
+	load_textures();
 	this->sprite.setTexture(this->texmgr.get_ref("mouse"));
 }
 
@@ -33,11 +33,15 @@ void Mouse::load_textures(){
 	return;
 }
 
-void Mouse::update(){
-	position = sf::Vector2f(sf::Mouse::getPosition(this->game->window));
+void Mouse::update(const float dt){
+	position = sf::Vector2f(sf::Mouse::getPosition(this->game->window) + sf::Vector2i(-9,-9));
 	sprite.setPosition(position);
 }
 
-void Mouse::draw(){
+void Mouse::draw(const float dt){
 	this->game->window.draw(this->sprite);
+}
+
+sf::Vector2f Mouse::get_position() {
+	return position;
 }

@@ -18,12 +18,13 @@ public:
 	sf::Sprite sprite;
 
 	void load_textures();
-	void update();
-	void draw();
+	void update(const float dt);
+	void draw(const float dt);
 	Mouse(Game* game);
 	Mouse();
 	virtual ~Mouse();
 	void set_game_pointer(Game* game);
+	sf::Vector2f get_position();
 
 private:
 	Texture_manager texmgr;

@@ -10,11 +10,14 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include "Mouse.h"
+#include "Menuestart.h"
 
 class Gamestate_start: public Gamestate {
 public:
 
 	Mouse mouse;
+	Menue_start menue;
+
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handle_input();
