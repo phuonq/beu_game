@@ -21,8 +21,7 @@ public:
 
 	std::stack<Gamestate*> states;
 	sf::RenderWindow window;
-	//sf::Sprite background;
-	//Texture_manager texmgr;
+
 
 	void push_state(Gamestate* state);
 	void pop_state();
@@ -35,7 +34,7 @@ public:
 	~Game();
 
 private:
-	//void load_textures();
+
 };
 
 #endif /* GAME_H_ */

@@ -11,7 +11,6 @@
 Gamestate_start::Gamestate_start(Game* game) {
 	load_textures();
 	this->game = game;
-	//mouse = Mouse(this->game);
 	mouse.set_game_pointer(game);
 	menue.set_game_pointer(game);
 	sf::Vector2f pos = sf::Vector2f(this->game->window.getSize());
@@ -54,9 +53,9 @@ void Gamestate_start::handle_input(){
 			                    float(event.size.height) / float(this->background.getTexture()->getSize().y));
 			break;
 		case sf::Event::KeyPressed:
-			if(event.key.code == sf::Keyboard::Escape)
+			/*if(event.key.code == sf::Keyboard::Escape)
 				this->game->window.close();
-			/*else if(event.key.code == sf::Keyboard::Return)
+			else if(event.key.code == sf::Keyboard::Return)
 				this->load_game();*/
 	        break;
 		case sf::Event::MouseButtonPressed:

@@ -32,6 +32,8 @@ void Gamestate_game::draw(const float dt){
 }
 
 void Gamestate_game::update(const float dt){
+	if(escape_flag == 1)
+		this->game->pop_state();
 	return;
 }
 
@@ -50,6 +52,10 @@ void Gamestate_game::handle_input(){
 			this->background.setScale(float(event.size.width) / float(this->background.getTexture()->getSize().x),
 			                    float(event.size.height) / float(this->background.getTexture()->getSize().y));
 			break;
+		case sf::Event::KeyPressed:
+			if(event.key.code == sf::Keyboard::Escape)
+				set_escape_flag();
+			break;
 		default:
 			break;
 		}
@@ -59,4 +65,8 @@ void Gamestate_game::handle_input(){
 
 void Gamestate_game::load_textures(){
 	texmgr.load_texture("background_game", "textures/background_game.jpg");
+}
+
+void Gamestate_game::set_escape_flag() {
+	escape_flag = 1;
 }

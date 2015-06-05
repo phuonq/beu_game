@@ -56,16 +56,12 @@ void Game::game_loop(){
 	}
 }
 
-/*void Game::load_textures(){
-	texmgr.load_texture("background", "textures/background.jpg");
-}*/
+
 
 Game::Game() {
-	//this->load_textures();
     this->window.create(sf::VideoMode(800, 600), "Legends Unleashed");
     this->window.setFramerateLimit(60);
     this->window.setMouseCursorVisible(false);
-    //this->background.setTexture(this->texmgr.get_ref("background"));
 }
 
 Game::~Game() {

@@ -17,11 +17,12 @@ public:
 	virtual void handle_input();
 	Gamestate_game(Game* game);
 	virtual ~Gamestate_game();
-
+	void set_escape_flag();
 private:
 	sf::View game_view;
 	sf::View gui_view;
 	void load_textures();
+	int escape_flag;
 
 };
 
