@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include "Gamestate.h"
 
+
 class Gamestate_game : public Gamestate {
 public:
 	virtual void draw(const float dt);

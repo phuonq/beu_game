@@ -17,6 +17,7 @@ Gamestate_game::Gamestate_game(Game* game) {
 	this->gui_view.setCenter(pos);
 	this->game_view.setCenter(pos);
 	this->background.setTexture(this->texmgr.get_ref("background_game"));
+	escape_flag = 0;
 
 }
 

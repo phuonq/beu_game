@@ -53,10 +53,7 @@ void Gamestate_start::handle_input(){
 			                    float(event.size.height) / float(this->background.getTexture()->getSize().y));
 			break;
 		case sf::Event::KeyPressed:
-			/*if(event.key.code == sf::Keyboard::Escape)
-				this->game->window.close();
-			else if(event.key.code == sf::Keyboard::Return)
-				this->load_game();*/
+
 	        break;
 		case sf::Event::MouseButtonPressed:
 			if(sf::Event::MouseLeft)
