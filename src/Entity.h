@@ -44,7 +44,7 @@ protected:
 	Game* game;
 	sf::Sprite sprite;
 	Texture_manager texmgr;
-
+//michis sogay
 };
 
 #endif /* ENTITY_H_ */
