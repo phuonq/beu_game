@@ -65,6 +65,9 @@ void Gamestate_start::handle_input(){
 				case 1:
 					this->load_game();
 					break;
+				case 2:
+					this->game->window.close();
+					break;
 				}
 			break;
 		default:

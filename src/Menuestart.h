@@ -15,6 +15,7 @@
 class Menue_start : public Menue {
 public:
 	Menue_button play;
+	Menue_button exit;
 	Game* game;
 
 	void update(const float dt);
