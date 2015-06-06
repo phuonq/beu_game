@@ -78,6 +78,6 @@ void Gamestate_start::load_game(){
 }
 
 void Gamestate_start::load_textures(){
-	texmgr.load_texture("background_start", "textures/background_start.jpeg");
+	texmgr.load_texture("background_start", "textures/background_start.jpg");
 }
 
