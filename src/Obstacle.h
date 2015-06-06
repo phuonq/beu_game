@@ -15,6 +15,8 @@
 class Obstacle: public Entity {
 public:
 	Obstacle();
+	Obstacle(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, int texture_number)
+		: Entity(position,velocity,accelaration,shape_size,game,texture_number){}
 	virtual ~Obstacle();
 	void add_Obstacle(Obstacle obstacle);
 	void remove_Obstacle(std::vector<Obstacle>::iterator it);
