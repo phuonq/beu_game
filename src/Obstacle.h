@@ -10,7 +10,7 @@
 
 #include "Entity.h"
 
-#define texture_link "texture/Obstacles/"
+#define texture_link "textures/Obstacles/"
 
 class Obstacle: public Entity {
 public:

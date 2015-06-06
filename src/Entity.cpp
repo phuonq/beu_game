@@ -54,7 +54,7 @@ void Entity::load_multiple_textures(const std::string& texture_link) {
 	std::string texture_type;
 
 	if (is_directory(texture_link)) {
-		  for (directory_iterator itr(texture_link); itr!=directory_iterator(); ++itr) {
+		  for (directory_iterator itr(texture_link); itr!=directory_iterator(); itr++) {
 			  texture_type = itr->path().stem().string();
 			  full_link = texture_link + itr->path().filename().string();
 			  this->load_textures(texture_type, full_link);

@@ -76,7 +76,6 @@ void Gamestate_game::handle_input(){
 
 void Gamestate_game::load_textures(){
 	texmgr.load_texture("background_game", "textures/background_game.jpg");
-	this->obstacle.load_multiple_textures(texture_link);
 }
 
 void Gamestate_game::set_escape_flag() {

@@ -10,7 +10,7 @@
 std::vector<Obstacle> Obstacle::list;
 
 Obstacle::Obstacle() {
-
+	this->load_multiple_textures(texture_link);
 }
 
 Obstacle::~Obstacle() {
