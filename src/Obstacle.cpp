@@ -44,9 +44,6 @@ void Obstacle::draw_all_obstacles(const float dt) {
 	}
 }
 void Obstacle::update_all_obstacles(const float dt) {
-	position = sf::Vector2f(sf::Mouse::getPosition(this->game->window) + sf::Vector2i(-9,-9));
-	sprite.setPosition(position);
-
 	std::vector<Obstacle>::iterator first = get_pointer_on_first_element();
 	std::vector<Obstacle>::iterator last = get_pointer_on_last_element();
 	std::vector<Obstacle>::iterator it;
