@@ -18,6 +18,7 @@ Gamestate_start::Gamestate_start(Game* game) {
 	pos *= 0.5f;
 	this->view.setCenter(pos);
 	this->background.setTexture(this->texmgr.get_ref("background_start"));
+
 }
 
 Gamestate_start::~Gamestate_start() {
