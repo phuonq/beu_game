@@ -15,8 +15,8 @@
 class Entity {
 public:
 	Entity();
-	Entity(Game* game, const std::string &texture_type, const std::string &texture_link);
-	Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, const std::string &texture_type, const std::string &texture_link);
+	Entity(Game* game);
+	Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, int texture_number);
 	virtual ~Entity();
 	virtual void update(double dt);
 	void set_game_pointer(Game* game);
@@ -34,6 +34,7 @@ public:
 	sf::Vector2f get_accelaration();
 	sf::Vector2f get_hitbox();
 	sf::RectangleShape get_shape();
+	std::string get_texture_element(int i);
 
 protected:
 	sf::Vector2f position;
@@ -44,6 +45,7 @@ protected:
 	Game* game;
 	sf::Sprite sprite;
 	Texture_manager texmgr;
+	std::vector<std::string> texture_list;
 
 };
 

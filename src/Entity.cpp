@@ -12,13 +12,11 @@ Entity::Entity() {
 
 }
 
-Entity::Entity(Game *game, const std::string& texture_type, const std::string& texture_link) {
+Entity::Entity(Game *game) {
 	this->game = game;
-	load_textures(texture_type, texture_link);
-	set_texture(texture_type);
 }
 
-Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, const std::string& texture_type, const std::string& texture_link) {
+Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, int texture_number) {
 	this->position = position;
 	this->velocity = velocity;
 	this->accelaration = accelaration;
@@ -27,8 +25,7 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accela
 	this->hitbox.x = shape_size.x/2;
 	this->hitbox.y = shape_size.y/2;
 	this->game = game;
-	load_textures(texture_type, texture_link);
-	set_texture(texture_type);
+	this->set_texture(this->texture_list[texture_number]);
 }
 
 Entity::~Entity() {
@@ -61,6 +58,7 @@ void Entity::load_multiple_textures(const std::string& texture_link) {
 			  texture_type = itr->path().stem().string();
 			  full_link = texture_link + itr->path().filename().string();
 			  this->load_textures(texture_type, full_link);
+			  this->texture_list.push_back(texture_type);
 		  }
 	  }
 
@@ -113,4 +111,8 @@ sf::RectangleShape Entity::get_shape() {
 
 sf::Vector2f Entity::get_hitbox() {
 	return this->hitbox;
+}
+
+std::string Entity::get_texture_element(int i) {
+	return this->texture_list[i];
 }
