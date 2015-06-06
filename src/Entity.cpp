@@ -25,7 +25,6 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accela
 	this->hitbox.x = shape_size.x/2;
 	this->hitbox.y = shape_size.y/2;
 	this->game = game;
-	this->set_texture(this->texture_list[texture_number]);
 }
 
 Entity::~Entity() {
