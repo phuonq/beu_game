@@ -16,7 +16,7 @@ class Entity {
 public:
 	Entity();
 	Entity(Game* game);
-	Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, int texture_number);
+	Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, std::string texture_link, int texture_number);
 	virtual ~Entity();
 	virtual void update(double dt);
 	void set_game_pointer(Game* game);

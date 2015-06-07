@@ -40,6 +40,7 @@ void Obstacle::draw_all_obstacles(const float dt) {
 	std::vector<Obstacle>::iterator it;
 
 	for (it = first; it != last; it++) {
+		it->sprite.setTexture((it->texmgr.get_ref(it->texture_list[0])));
 		it->game->window.draw(it->sprite);
 	}
 }

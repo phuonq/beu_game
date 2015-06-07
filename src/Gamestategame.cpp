@@ -64,7 +64,7 @@ void Gamestate_game::handle_input(){
 			break;
 		case sf::Event::MouseButtonPressed:
 			if(sf::Event::MouseLeft) {
-				obstacle.add_Obstacle(Obstacle(sf::Vector2f(sf::Mouse::getPosition(this->game->window)), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(10,20), this->game, 0));
+				obstacle.add_Obstacle(Obstacle(sf::Vector2f(sf::Mouse::getPosition(this->game->window)), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(32,32), this->game, texture_link, 0));
 			}
 			break;
 		default:

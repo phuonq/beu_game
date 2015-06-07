@@ -16,12 +16,13 @@ Entity::Entity(Game *game) {
 	this->game = game;
 }
 
-Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, int texture_number) {
+Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accelaration, sf::Vector2f shape_size, Game* game, std::string texture_link, int texture_number) {
 	this->position = position;
 	this->velocity = velocity;
+	this->load_multiple_textures(texture_link);
 	this->accelaration = accelaration;
-	this->shape.setSize(shape_size);
-	this->shape.setPosition(position);
+	this->set_texture(this->texture_list[texture_number]);
+	this->sprite.setPosition(position);
 	this->hitbox.x = shape_size.x/2;
 	this->hitbox.y = shape_size.y/2;
 	this->game = game;
@@ -34,7 +35,7 @@ Entity::~Entity() {
 void Entity::update(double dt) {
 	velocity.x += accelaration.x * dt;
 	velocity.y += accelaration.y * dt;
-	shape.move(velocity);
+	sprite.move(velocity);
 }
 
 void Entity::draw() {
@@ -66,6 +67,7 @@ void Entity::load_multiple_textures(const std::string& texture_link) {
 
 void Entity::set_texture(const std::string &texture_type) {
 	this->sprite.setTexture(this->texmgr.get_ref(texture_type));
+	this->sprite.setTextureRect(sf::IntRect(0,0,32,32));
 }
 
 void Entity::set_game_pointer(Game* game) {
