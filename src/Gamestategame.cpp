@@ -63,8 +63,23 @@ void Gamestate_game::handle_input(){
 				set_escape_flag();
 			break;
 		case sf::Event::MouseButtonPressed:
-			if(sf::Event::MouseLeft) {
+			if(event.mouseButton.button == sf::Mouse::Left) {
 				obstacle.add_Obstacle(Obstacle(sf::Vector2f(sf::Mouse::getPosition(this->game->window)), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(32,32), this->game, texture_link, 0));
+			}
+			else if(event.mouseButton.button == sf::Mouse::Right) {
+					std::vector<Obstacle>::iterator first = obstacle.get_pointer_on_first_element();
+					std::vector<Obstacle>::iterator last = obstacle.get_pointer_on_last_element();
+					std::vector<Obstacle>::iterator it;
+					sf::Vector2f p,l;
+					sf::Vector2i k;
+
+					for (it = first; it != last; it++) {
+						p = it->get_hitbox();
+						k = sf::Mouse::getPosition(this->game->window);
+						l = it->get_position();
+						if (k.x < l.x + p.x && k.x> l.x-p.x && k.y < l.y + p.y && k.y> l.y-p.y )
+							it->remove_Obstacle(it);
+					}
 			}
 			break;
 		default:

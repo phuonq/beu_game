@@ -23,7 +23,6 @@ void Obstacle::add_Obstacle(Obstacle obstacle) {
 
 void Obstacle::remove_Obstacle(std::vector<Obstacle>::iterator it) {
 	this->list.erase(it);
-	this->~Obstacle();
 }
 
 std::vector<Obstacle>::iterator Obstacle::get_pointer_on_first_element() {
@@ -40,7 +39,6 @@ void Obstacle::draw_all_obstacles(const float dt) {
 	std::vector<Obstacle>::iterator it;
 
 	for (it = first; it != last; it++) {
-		it->sprite.setTexture((it->texmgr.get_ref(it->texture_list[0])));
 		it->game->window.draw(it->sprite);
 	}
 }
@@ -50,6 +48,7 @@ void Obstacle::update_all_obstacles(const float dt) {
 	std::vector<Obstacle>::iterator it;
 
 	for (it = first; it != last; it++) {
+		it->sprite.setTexture((it->texmgr.get_ref(it->texture_list[it->texture_number])));
 		it->update(dt);
 	}
 }

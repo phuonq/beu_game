@@ -46,6 +46,7 @@ protected:
 	sf::Sprite sprite;
 	Texture_manager texmgr;
 	std::vector<std::string> texture_list;
+	int texture_number;
 
 };
 
