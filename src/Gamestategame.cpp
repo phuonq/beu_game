@@ -21,6 +21,7 @@ Gamestate_game::Gamestate_game(Game* game) {
 	this->game->window.setMouseCursorVisible(true);
 
 	obstacle.set_game_pointer(game);
+	champ.add_Champion(Champion(sf::Vector2f(400,500), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(48,48), game, texture_link_champ, 0));
 }
 
 Gamestate_game::~Gamestate_game() {
@@ -31,13 +32,41 @@ void Gamestate_game::draw(const float dt){
 	this->game->window.clear(sf::Color::Blue);
 	this->game->window.draw(this->background);
 	this->obstacle.draw_all_obstacles(dt);
+	this->champ.draw_all_champions(dt);
+	this->projectile.draw_all_projectiles(dt);
 	return;
 }
 
 void Gamestate_game::update(const float dt){
 
-	this->obstacle.update_all_obstacles(dt);
+	std::vector<Projectile>::iterator it;
+	std::vector<Projectile>::iterator first_pro = projectile.get_pointer_on_first_element();
+	std::vector<Projectile>::iterator last_pro = projectile.get_pointer_on_last_element();
+	std::vector<Obstacle>::iterator it2;
+	std::vector<Obstacle>::iterator first_obs = obstacle.get_pointer_on_first_element();
+	std::vector<Obstacle>::iterator last_obs = obstacle.get_pointer_on_last_element();
 
+	for (it = first_pro; it!=last_pro; it++) {
+		for (it2 = first_obs; it2!=last_obs; it2++) {
+
+			if ((it->bottom_side_hitbox() < it2->bottom_side_hitbox() && it->bottom_side_hitbox() > it2->top_side_hitbox())
+				|| ((it->top_side_hitbox() > it2->top_side_hitbox() && it->top_side_hitbox() < it2->bottom_side_hitbox())
+				&& ((it->left_side_hitbox() > it2->left_side_hitbox() && it->left_side_hitbox() < it2->left_side_hitbox()))
+				|| (it->right_side_hitbox() > it2->left_side_hitbox() && it->right_side_hitbox() < it2->right_side_hitbox()))) {
+				obstacle.remove_Obstacle(it2);
+				projectile.remove_Projectile(it);
+			}
+		}
+	}
+
+
+	this->obstacle.update_all_obstacles(dt);
+	this->champ.update_all_champions(dt);
+	this->projectile.update_all_projectiles(dt);
+	if(this->champ.get_pointer_on_first_element()->get_velocity().x > 0)
+		this->champ.get_pointer_on_first_element()->set_velocity(sf::Vector2f(this->champ.get_pointer_on_first_element()->get_velocity().x-8*dt,0.f));
+	if(this->champ.get_pointer_on_first_element()->get_velocity().x < 0)
+		this->champ.get_pointer_on_first_element()->set_velocity(sf::Vector2f(this->champ.get_pointer_on_first_element()->get_velocity().x+8*dt,0.f));
 	if(escape_flag == 1)
 		this->game->pop_state();
 	return;
@@ -61,25 +90,23 @@ void Gamestate_game::handle_input(){
 		case sf::Event::KeyPressed:
 			if(event.key.code == sf::Keyboard::Escape)
 				set_escape_flag();
+			if(event.key.code == sf::Keyboard::A) {
+				// this->champ.get_pointer_on_first_element()->set_velocity(sf::Vector2f(-5,0));
+				if(this->champ.get_pointer_on_first_element()->get_velocity().x > -5 )
+					this->champ.get_pointer_on_first_element()->set_velocity(sf::Vector2f(this->champ.get_pointer_on_first_element()->get_velocity().x-3,0.f));
+			}
+			if(event.key.code == sf::Keyboard::D)
+				this->champ.get_pointer_on_first_element()->set_velocity(sf::Vector2f(5,0));
 			break;
 		case sf::Event::MouseButtonPressed:
 			if(event.mouseButton.button == sf::Mouse::Left) {
-				obstacle.add_Obstacle(Obstacle(sf::Vector2f(sf::Mouse::getPosition(this->game->window)), sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(32,32), this->game, texture_link, 0));
+				sf::Vector2f c_pos = this->champ.get_pointer_on_first_element()->get_position();
+				sf::Vector2f m_pos = sf::Vector2f(sf::Mouse::getPosition(this->game->window));
+				projectile.add_Projectile(Projectile(c_pos,m_pos-c_pos, sf::Vector2f(0,0), sf::Vector2f(15,15),game,texture_link_proj,0));
 			}
 			else if(event.mouseButton.button == sf::Mouse::Right) {
-					std::vector<Obstacle>::iterator first = obstacle.get_pointer_on_first_element();
-					std::vector<Obstacle>::iterator last = obstacle.get_pointer_on_last_element();
-					std::vector<Obstacle>::iterator it;
-					sf::Vector2f p,l;
-					sf::Vector2i k;
-
-					for (it = first; it != last; it++) {
-						p = it->get_hitbox();
-						k = sf::Mouse::getPosition(this->game->window);
-						l = it->get_position();
-						if (k.x < l.x + p.x && k.x> l.x-p.x && k.y < l.y + p.y && k.y> l.y-p.y )
-							it->remove_Obstacle(it);
-					}
+				sf::Vector2f m_pos = sf::Vector2f(sf::Mouse::getPosition(this->game->window));
+				obstacle.add_Obstacle(Obstacle(m_pos, sf::Vector2f(0,0), sf::Vector2f(0,0), sf::Vector2f(48,48),game,texture_link_obs,0));
 			}
 			break;
 		default:
@@ -90,7 +117,7 @@ void Gamestate_game::handle_input(){
 }
 
 void Gamestate_game::load_textures(){
-	texmgr.load_texture("background_game", "textures/background_game.jpg");
+	texmgr.load_texture("background_game", "textures/background_game.png");
 }
 
 void Gamestate_game::set_escape_flag() {

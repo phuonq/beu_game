@@ -23,6 +23,7 @@ Entity::Entity(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f accela
 	this->accelaration = accelaration;
 	this->texture_number = texture_number;
 	this->sprite.setPosition(position);
+	this->sprite.setOrigin(shape_size.x/2,shape_size.y/2);
 	this->hitbox.x = shape_size.x/2;
 	this->hitbox.y = shape_size.y/2;
 	this->game = game;
@@ -95,7 +96,7 @@ void Entity::set_velocity(sf::Vector2f velocity) {
 }
 
 sf::Vector2f Entity::get_position() {
-	return this->position;
+	return this->sprite.getPosition();
 }
 
 sf::Vector2f Entity::get_velocity() {
@@ -116,4 +117,24 @@ sf::Vector2f Entity::get_hitbox() {
 
 std::string Entity::get_texture_element(int i) {
 	return this->texture_list[i];
+}
+
+double Entity::left_side_hitbox() {
+	return this->get_position().x - this->get_hitbox().x;
+}
+
+double Entity::right_side_hitbox() {
+	return this->get_position().x + this->get_hitbox().x;
+}
+
+double Entity::top_side_hitbox() {
+	return this->get_position().y + this->get_hitbox().y;
+}
+
+double Entity::bottom_side_hitbox() {
+	return this->get_position().y - this->get_hitbox().y;
+}
+
+sf::Sprite Entity::get_sprite() {
+	return this->sprite;
 }

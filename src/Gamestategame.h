@@ -11,6 +11,8 @@
 #include "Gamestate.h"
 #include "Game.h"
 #include "Obstacle.h"
+#include "Projectile.h"
+#include "Champion.h"
 
 class Gamestate_game : public Gamestate {
 public:
@@ -28,7 +30,8 @@ private:
 	int escape_flag;
 
 	Obstacle obstacle;
-
+	Projectile projectile;
+	Champion champ;
 
 };
 

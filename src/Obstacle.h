@@ -10,7 +10,7 @@
 
 #include "Entity.h"
 
-#define texture_link "textures/Obstacles/"
+#define texture_link_obs "textures/Obstacles/"
 
 class Obstacle: public Entity {
 public:
@@ -27,6 +27,7 @@ public:
 
 private:
 	static std::vector<Obstacle> list;
+
 };
 
 #endif /* OBSTACLE_H_ */

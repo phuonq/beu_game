@@ -35,6 +35,11 @@ public:
 	sf::Vector2f get_hitbox();
 	sf::RectangleShape get_shape();
 	std::string get_texture_element(int i);
+	double left_side_hitbox();
+	double right_side_hitbox();
+	double top_side_hitbox();
+	double bottom_side_hitbox();
+	sf::Sprite get_sprite();
 
 protected:
 	sf::Vector2f position;
